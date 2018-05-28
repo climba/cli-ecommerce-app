@@ -17,14 +17,25 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  readProducts();
+  // displayDigitalProducts();
+  displayClothingProducts();
 
 
 });
 
-function readProducts() {
+function displayDigitalProducts() {
   console.log("Selecting all products...\n");
-  connection.query("SELECT * FROM products", function(err, res) {
+  connection.query("SELECT * FROM products WHERE department_name='Digital'", function(err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    console.log(res);
+    connection.end();
+  });
+}
+
+function displayClothingProducts() {
+  console.log("Selecting all products...\n");
+  connection.query("SELECT * FROM products WHERE department_name='Clothing'", function(err, res) {
     if (err) throw err;
     // Log all results of the SELECT statement
     console.log(res);

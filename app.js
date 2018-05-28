@@ -17,10 +17,11 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  runSearch();
+  initialOptions();
 
+});
 
-function runSearch() {
+function initialOptions() {
   inquirer
     .prompt({
       name: "action",
@@ -50,6 +51,25 @@ function runSearch() {
     });
 }
 
+function purchaseOptions() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "list",
+      message: "What would you like to do Now? You can:",
+      choices: [
+        "Purchase a Product",
+      ]
+    })
+    .then(function(answer) {
+      switch (answer.action) {
+      case "Explore store categories":
+        purchaseProduct();
+        break;
+
+      }
+    });
+}
 
 
 function listCategories() {
@@ -80,30 +100,63 @@ function listCategories() {
   
 }
 
-
-function displayDigitalProducts(product_name, depatment_name, price ) {
-      
-      // console.log(answer.action);
-      connection.query("SELECT * FROM products WHERE department_name = 'Digital'", function(err, res) {
-        if (err) {
-          console.log(err);
-        } else {
-        for (var i = 0; i < res.length; i++) {
-        console.log(
-          "Product Name: " +
-            res[0].product_name +
-            " || Department: " +
-            res[0].depatment_name +
-            " || Price: " +
-            res[0].price
-        );
-      } 
-    }   
-        // runSearch();
-      });
-    }
-
+function displayDigitalProducts() {
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Selecting all products...\n");
+    connection.query("SELECT * FROM products", function(err, res) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.log(res);
+      connection.end();
+    });
   });
+}
+
+
+function productsNameSearch() {
+  inquirer
+    .prompt({
+      name: "product_name",
+      type: "input",
+      message: "What Product would you like to search for?"
+    })
+    .then(function(answer) {
+      var query = "SELECT product_name, department_name, price FROM products WHERE ?";
+      connection.query(query, { product_name: answer.product_name }, function(err, res) {
+        for (var i = 0; i < res.length; i++) {
+          console.log("Product: " + res[i].product_name +
+                      " || Department: " + res[i].department_name +
+                      " || Price: $" + res[i].price  );
+        }
+        purchaseOptions();
+      });
+    });
+}
+
+function purchaseOptions() {
+  inquirer
+  .prompt({
+    name: "product_name",
+    type: "input",
+    message: "What Product would you like to purchase?"
+  })
+  .then(function(answer) {
+    var query = "SELECT product_name, department_name, price FROM products WHERE ?";
+    connection.query(query, { product_name: answer.product_name }, function(err, res) {
+      for (var i = 0; i < res.length; i++) {
+        console.log("You just purchased the " + res[i].product_name + " for $" + res[i].price  );
+      }
+      // purchaseOptions();
+      console.log("Thanks for shopping with us!");
+      connection.end();
+    });
+  });
+}
+
+
+
+
 
 
 
@@ -141,30 +194,30 @@ function displayDigitalProducts(product_name, depatment_name, price ) {
 
 
 
-function productsNameSearch() {
-  inquirer
-    .prompt({
-      name: "song",
-      type: "input",
-      message: "What song would you like to look for?"
-    })
-    .then(function(answer) {
-      console.log(answer.song);
-      connection.query("SELECT column_name1, column_name2 FROM table_name", function(err, res) {
-        console.log(
-          "Position: " +
-            res[0].position +
-            " || Song: " +
-            res[0].song +
-            " || Artist: " +
-            res[0].artist +
-            " || Year: " +
-            res[0].year
-        );
-        runSearch();
-      });
-    });
-}
+// function productsNameSearch() {
+//   inquirer
+//     .prompt({
+//       name: "song",
+//       type: "input",
+//       message: "What song would you like to look for?"
+//     })
+//     .then(function(answer) {
+//       console.log(answer.song);
+//       connection.query("SELECT column_name1, column_name2 FROM table_name", function(err, res) {
+//         console.log(
+//           "Position: " +
+//             res[0].position +
+//             " || Song: " +
+//             res[0].song +
+//             " || Artist: " +
+//             res[0].artist +
+//             " || Year: " +
+//             res[0].year
+//         );
+//         runSearch();
+//       });
+//     });
+// }
 
 
 
