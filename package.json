@@ -14,7 +14,8 @@
   "author": "",
   "dependencies": {
     "inquirer": "^1.0.2",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "cli-table": "^0.3.1"
   },
   "license": "ISC",
   "bugs": {

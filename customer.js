@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require('cli-table');
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -21,8 +22,92 @@ connection.connect(function(err) {
 
 });
 
-
 function initialOptions() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "list",
+      message: "What would you like to do?",
+      choices: [
+        "Explore store categories",
+        "Find products by Category",
+        "Find products by name",
+      ]
+    })
+    .then(function(answer) {
+      switch (answer.action) {
+      case "Explore store categories":
+        listCategories();
+        break;
+
+      case "Find products by Type or Category":
+        searchByType();
+        break;
+
+      case "Find products by name":
+        productsNameSearch();
+        break;
+
+      }
+    });
+}
+
+
+function productsNameSearch() {
+  console.log("Searching all product with similar names ...\n");
+  connection.query("SELECT DISTINCT department_name FROM products;", function(err, res) {
+    if (err) throw err;
+    for (var i = 0; i < res.length; i++) {
+      console.log("Department: " + res[i].department_name );
+    }
+    purchaseOptions();
+  });
+}
+
+
+function listCategories() {
+  console.log("Selecting all product Categories ...\n");
+  connection.query("SELECT DISTINCT department_name FROM products;", function(err, res) {
+    if (err) throw err;
+    for (var i = 0; i < res.length; i++) {
+      console.log("Department: " + res[i].department_name );
+    }
+    chooseCatagory();
+  });
+}
+
+function chooseCatagory() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "list",
+      message: "What Catagory would you like to purchase from?",
+      choices: [
+        "Purchase Digital Products",
+        "Purchase Clothing Products",
+        "Purchase Climbing Products",
+      ]
+    })
+    .then(function(answer) {
+      switch (answer.action) {
+      case "Purchase Digital Products":
+        dispDigitalProds();
+        break;
+
+      case "Purchase Clothing Products":
+        dispClothingProds();
+        break;
+
+      case "Purchase Climbing Products":
+        dispClimbingProds();
+        break;  
+
+      }
+    });
+}
+
+
+function searchByType() {
   inquirer
     .prompt({
       name: "action",
@@ -105,18 +190,16 @@ function purchaseOptions() {
       for (var i = 0; i < res.length; i++) {
         console.log("You just purchased the " + res[i].product_name + " for $" + res[i].price  );
       }
+      console.log(answer.product_name);
       connection.query(
-        "UPDATE products SET `stock_quantity` = `stock_quantity` - 1 ",
-        "UPDATE products SET `product_sales` = `product_sales` + 1 ",
+        "UPDATE products SET `stock_quantity` = `stock_quantity` -1, `product_sales` = `product_sales` +1 WHERE `product_name` =?", [answer.product_name],
         function (err, res) {
           if (err) {
             console.log(err);
           }
+          // console.log(res);
         }
-      );
-      
-      // console.log("You just purchased the " + answer.product_name + " for $" + answer.price  );
-
+      ); 
       console.log("Thanks for shopping with us!");
       connection.end();
     });
