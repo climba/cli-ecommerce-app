@@ -70,19 +70,22 @@ function salesById() {
       message: "Enter the Item ID that you would like to see sales for:",
     
     }).then(function(answer){
-      var query = "SELECT order_num, department_name, order_quantity FROM orders WHERE item_id = ?";
-      connection.query(query, answer, 
+      var query = "SELECT order_num, department_name, order_quantity FROM orders WHERE order_prod_id = ?";
+      connection.query(query, [answer.action], 
         function(err, res) {
           if (err) {
             console.log(err);
           }
-          console.log(res);
-          // console.log("Order Number: " + res[0].order_num +
-          // " || Department: " + res[0].department_name +
-          // " || Order Quantity: " + res[0].order_quantity  );
+          // console.log(res);
+          for(var i =0; i < res.length; i++) {
+          console.log("Order Number: " + res[i].order_num +
+          " || Department: " + res[i].department_name +
+          " || Order Quantity: " + res[i].order_quantity  );
+        }
 
       }
     )
+    connection.end();
   });
 })
 
