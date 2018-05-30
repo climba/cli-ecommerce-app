@@ -209,13 +209,17 @@ function purchaseOptions() {
     connection.query(query, { product_name: answer.product_name }, function(err, res) {
     
       console.log("You just purchased: " + answer.order_quantity + " " + res[0].product_name + "'s from the " + 
-                  res[0].department_name + " Department! The price TOTAL is $" + res[0].price * answer.order_quantity + ", the product ID is: " + 
+                  res[0].department_name + " Department! The price is $" + res[0].price + " each, the product ID is: " + 
                   res[0].item_id + ", and the shipping cost is: $" + res[0].shipping  );
 
-      connection.query(
-        "UPDATE products SET `stock_quantity` = `stock_quantity` -" + [answer.order_quantity] + ", `product_sales` = `product_sales` +" + [answer.order_quantity] + " WHERE `product_name` =?", [answer.product_name],
+          var queryP1 = "UPDATE products SET `stock_quantity` = `stock_quantity` -";
+          var queryP2 = "`product_sales` = `product_sales` +";  
+          var queryP3 = "WHERE `product_name` =?";        
+
+      connection.query(queryP1, [answer.order_quantity], queryP2, [answer.order_quantity], queryP3, [answer.product_name],
         function (err, res) {
           if (err) {
+            console.log(answer.order_quantity);
             console.log(err);
           }
           // console.log(res);
@@ -227,7 +231,7 @@ function purchaseOptions() {
 }
 
 function addNewOrder(order_prod_id, order_quantity, shipping, department_name) {
-  console.log("Inserting a new Order.... \n");
+  console.log("Insertig a new Order.... \n");
   var query2 = connection.query(
     "INSERT INTO orders SET ?",
     {
