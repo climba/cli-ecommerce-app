@@ -2,6 +2,7 @@
 
 #### This application connects to a database and tracks sales, inventory and department profit and losses.
 
+### Instructions
 
 1. To run this app, you'll need to install the following Node packages.
 
@@ -13,9 +14,9 @@
 
 2. You will need to set up the database. Use the file named "mystore_bd-SETUP.sql" located in this repo.
 
-3. Once you have your database set up, you can edit the configs at the tope of each file for your specific environment. 
+3. Once you have your database set up, you can edit the configs at the top of the files list below for your specific environment. 
 
-    _Edit lines 6 to 16 in "app_customer.js" and "app_customer.js"_
+    _Edit lines 6 to 16 in "app_customer.js" and "app_supervisor.js"_
 
 ```javascript
   host: "localhost",
@@ -30,3 +31,10 @@
   password: "",
   database: "mystore_db"
 ```
+
+4. Once your files are set up you can start using the app.
+
+5. Explore the functionaliy of the Customers area by running the command "node app_customer.js"
+
+6. Explore the functionaliy of the Customers area by running the command "node app_supervisor.js"
+
