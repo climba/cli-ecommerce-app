@@ -2,7 +2,7 @@
 
 #### This application connects to a database and tracks sales, inventory and department profit and losses.
 
-### Instructions
+## Use Instructions
 
 1. To run this app, you'll need to install the following Node packages.
 
@@ -17,6 +17,8 @@
 3. Once you have your database set up, you can edit the configs at the top of the files list below for your specific environment. 
 
     _Edit lines 6 to 16 in "app_customer.js" and "app_supervisor.js"_
+
+## Configure your Database    
 
 ```javascript
   host: "localhost",
@@ -36,13 +38,15 @@
 
 5. Explore the functionaliy of the Customers area by running the command " _node app_customer.js_ "
 
-### Customer Area
+## Customer Area
 
 ![app_customer.gif](images/app_customer.gif?raw=true "Customer Area")
 
 6. Explore the functionaliy of the Customers area by running the command " _node app_supervisor.js_ "
 
-### Supervisor Area
+## Supervisor Area
 
 ![app_supervisor.gif](images/app_supervisor.gif?raw=true "Supervisor Area")
+
+###### Thanks for checking out my project! If you have any questions get in touch!
 
