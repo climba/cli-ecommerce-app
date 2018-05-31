@@ -4,4 +4,4 @@ mysqldump -u root -p mystore_db > /C/Users/Mike/Documents/bootcamp/_msql_command
 
 Laptop
 
-C:\Users\mike\Documents\bootcamp\_msql_commands\mystore
+mysqldump -u root -p mystore_db > /C/Users/mike/Documents/bootcamp/_msql_commands/mystore/mystore_V10.sql

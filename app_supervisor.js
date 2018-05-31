@@ -37,7 +37,7 @@ function adminOptions() {
         "Add new Product",
         "View Products for Sale",
         "View Low Inventory",
-        "Add to Inventory",
+        "Update Inventory",
       ]
     })
     .then(function(answer) {
@@ -45,37 +45,83 @@ function adminOptions() {
       case "View Product Sales by Department":
         salesByDept();
         break;
-
         case "View Profits by Department":
         profitsByDept();
         break;  
-
-        
-
       case "View Product Sales by product ID":
         salesById();
         break;
-
       case "Add new Product":
         addProducts();
         break;
-
       case "View Products for Sale":
         viewAllProducts();
         break;  
-
       case "View Low Inventory":
-        viewLowInventory(); // To do, build this function
+        viewLowInventory(); 
         break; 
-        
-      case "Add to Inventory":
+      case "Update Inventory":
         addInventory(); // To do, build this function
         break;    
-
       }
-
     });
 }
+
+function addInventory() {
+  var tableP = new Table({head: ['Name', 'Price', 'Item ID', 'Stock']});
+  var query = "SELECT * FROM products";
+  connection.query(query, function(err, res) {
+    if(err) {
+      console.log(err);
+    }
+      for(var i =0; i < res.length; i++) {
+        // tableP.push([res[i].product_name, res[i].price, res[i].item_id, res[i].stock_quantity ])
+        // console.log("Item ID: " + res[i].item_id + " | Current Stock: " + res[i].stock_quantity + " | Name: " + res[i].product_name + " | Price: " + res[i].price );
+        console.log("Item ID: " + res[i].item_id + " | Current Stock: " + res[i].stock_quantity);
+      }   
+      // console.log(tableP.toString());  
+  })
+  inquirer
+  .prompt([
+    {
+    name: "item_id",
+    type: "input",
+    message: "Enter the Item ID that you would like update inventory for:",
+    },
+    {
+    name: "stock_quantity",
+    type: "input",
+    message: "Enter the new stock quantity:",
+    }
+]).then(function (answers) {
+    updateStockQuant(parseInt(answers.item_id), parseInt(answers.stock_quantity));
+  })
+}
+
+function updateStockQuant(item_id, stock_quantity) {
+  console.log(item_id + stock_quantity + "\n");
+  console.log("Inserting a new item.... \n");
+  var query = connection.query(
+    "UPDATE products SET ? WHERE ?",
+    {
+      stock_quantity: stock_quantity
+    },
+    {
+      item_id: item_id
+    },
+    function (err, res) {
+      console.log("Hi");
+      if (err) {
+        console.log(err);
+      }
+      // console.log(res);
+    });
+  // logs the actual query being run
+  console.log(query.sql);
+  connection.end();
+}
+
+
 
 function viewLowInventory() {
   var tableP = new Table({head: ['Name', 'Item ID', 'Stock']});
@@ -84,25 +130,21 @@ function viewLowInventory() {
     if(err) {
       console.log(err);
     }
+    var stock = [];
       for(var i =0; i < res.length; i++) {
-        
-        // console.log(res[i].stock_quantity); 
-        tableP.push([res[i].product_name, res[i].item_id, res[i].stock_quantity ])
+        stock.push(res[i].stock_quantity); 
+        if (res[i].stock_quantity < 10) {
+          tableP.push([res[i].product_name, res[i].item_id, res[i].stock_quantity ])      
+        } 
       } 
-    
-        console.log(tableP.toString());
-
-    //   if (stock < 100) {
-    //     tableP.push([res[i].product_name, res[i].item_id, res[i].stock_quantity ])
-    //     console.log(tableP.toString());
-
-    // } else {
-    //   console.log("Looks like stock is above 5 on all items");
-    // }
-  
+      
+      if (tableP.length === 0) {
+        console.log("Looks like stock is above 10 on all items");
+      } else {
+        console.log(tableP.toString()); 
+      }
   });
   connection.end();
-
 }
 
 function viewAllProducts() {
