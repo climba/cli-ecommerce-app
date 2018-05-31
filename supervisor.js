@@ -85,28 +85,25 @@ function viewLowInventory() {
       console.log(err);
     }
       for(var i =0; i < res.length; i++) {
-        tableP.push(
-          [res[i].product_name, res[i].item_id, res[i].stock_quantity ],
-        );  
-      }   
-      if (res[i].stock_quantity < 100) {
+        
+        // console.log(res[i].stock_quantity); 
+        tableP.push([res[i].product_name, res[i].item_id, res[i].stock_quantity ])
+      } 
+    
         console.log(tableP.toString());
 
-    } else {
-      console.log("Looks like stock is above 5 on all items");
-    }
+    //   if (stock < 100) {
+    //     tableP.push([res[i].product_name, res[i].item_id, res[i].stock_quantity ])
+    //     console.log(tableP.toString());
+
+    // } else {
+    //   console.log("Looks like stock is above 5 on all items");
+    // }
   
   });
   connection.end();
 
 }
-
-
-
-
-
-
-
 
 function viewAllProducts() {
     var tableP = new Table({head: ['Name', 'Price', 'Item ID', 'Stock']});
@@ -116,9 +113,7 @@ function viewAllProducts() {
         console.log(err);
       }
         for(var i =0; i < res.length; i++) {
-          tableP.push(
-            [res[i].product_name, res[i].price, res[i].item_id, res[i].stock_quantity ],
-          ); 
+          tableP.push([res[i].product_name, res[i].price, res[i].item_id, res[i].stock_quantity ])
         }   
         console.log(tableP.toString());  
     });
@@ -132,9 +127,7 @@ function salesById() {
   connection.query("SELECT * FROM products", function(err, res) {
     if (err) throw err;
     for(var i =0; i < res.length; i++) {
-      table.push(
-        [res[i].item_id, res[i].product_name, res[i].department_name ],
-      ); 
+      table.push([res[i].item_id, res[i].product_name, res[i].department_name ])
     }   
     console.log(table.toString());   
     inquirer
@@ -152,9 +145,7 @@ function salesById() {
             console.log(err);
           }
           // console.log(res);
-          table2.push(
-            [res[0].item_id, res[0].product_name, res[0].department_name, res[0]['SUM(product_sales * products.price)'] ],
-          ); 
+          table2.push([res[0].item_id, res[0].product_name, res[0].department_name, res[0]['SUM(product_sales * products.price)'] ])
           console.log(table2.toString());   
 
       }
@@ -174,9 +165,7 @@ function salesByDept() {
         if (err) throw err;
         // console.log(res)
         for(var i =0; i < res.length; i++) {
-          table.push(
-            [res[i].department_name, res[i]['SUM(product_sales * products.price)'] ] //
-          ); 
+          table.push([res[i].department_name, res[i]['SUM(product_sales * products.price)']])
         }   
         console.log(table.toString());    
       })
@@ -193,9 +182,7 @@ function profitsByDept() {
     // console.log(res)
     
     for(var i =0; i < res.length; i++) {
-      table.push(
-        [res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].total_sales, res[i].total_profit ] //
-      ); 
+      table.push([res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].total_sales, res[i].total_profit ])
     }  
     console.log(table.toString()); 
    

@@ -224,7 +224,7 @@ function purchaseOptions() {
                   addNewOrder(res[0].item_id, answer.order_quantity, res[0].shipping, res[0].department_name)
             
     } else {
-      console.log("There is not enough stock right now, please order " + res[0].stock_quantity + res[0].product_name + "'s or less")
+      console.log("There is not enough stock right now, please order " + res[0].stock_quantity + " " + res[0].product_name + "'s or less")
       purchaseOptions();
     };
 
