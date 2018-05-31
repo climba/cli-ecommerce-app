@@ -188,7 +188,6 @@ function dispClimbingProds() {
   });
 }
 
-
 function purchaseOptions() {
   inquirer
   .prompt([
@@ -205,23 +204,30 @@ function purchaseOptions() {
     }
 ])
   .then(function(answer) {
-    var query = "SELECT product_name, department_name, price, item_id, shipping FROM products WHERE ?";
+    var query = "SELECT product_name, department_name, price, item_id, shipping, stock_quantity FROM products WHERE ?";
     connection.query(query, { product_name: answer.product_name }, function(err, res) {
-    
+      console.log(res[0].stock_quantity);
+    if(answer.order_quantity < res[0].stock_quantity) {
       console.log("You just purchased: " + answer.order_quantity + " " + res[0].product_name + "'s from the " + 
                   res[0].department_name + " Department! The price TOTAL is $" + res[0].price * answer.order_quantity + ", the product ID is: " + 
                   res[0].item_id + ", and the shipping cost is: $" + res[0].shipping  );
 
-      connection.query(
-        "UPDATE products SET `stock_quantity` = `stock_quantity` -" + [answer.order_quantity] + ", `product_sales` = `product_sales` +" + [answer.order_quantity] + " WHERE `product_name` =?", [answer.product_name],
-        function (err, res) {
-          if (err) {
-            console.log(err);
-          }
-          // console.log(res);
-        }
-      ); 
-      addNewOrder(res[0].item_id, answer.order_quantity, res[0].shipping, res[0].department_name)
+                  connection.query(
+                    "UPDATE products SET `stock_quantity` = `stock_quantity` -" + [answer.order_quantity] + ", `product_sales` = `product_sales` +" + [answer.order_quantity] + " WHERE `product_name` =?", [answer.product_name],
+                    function (err, res) {
+                      if (err) {
+                        console.log(err);
+                      }
+                      // console.log(res);
+                    }
+                  ); 
+                  addNewOrder(res[0].item_id, answer.order_quantity, res[0].shipping, res[0].department_name)
+            
+    } else {
+      console.log("There is not enough stock right now, please order " + res[0].stock_quantity + res[0].product_name + "'s or less")
+      purchaseOptions();
+    };
+
     });
   })
 }

@@ -13,9 +13,9 @@
   "keywords": [],
   "author": "",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "inquirer": "^1.0.2",
-    "mysql": "^2.15.0",
-    "cli-table": "^0.3.1"
+    "mysql": "^2.15.0"
   },
   "license": "ISC",
   "bugs": {
