@@ -6,11 +6,11 @@
 
 1. To run this app, you'll need to install the following Node packages.
 
-   * [CLI Table](https://www.npmjs.com/package/cli-table)
+   * [CLI Table](https://www.npmjs.com/package/cli-table) run _npm install cli-table_ 
    
-   * [inquirer](https://www.npmjs.com/package/inquirer)
+   * [inquirer](https://www.npmjs.com/package/inquirer) run _npm install inquirer_ 
    
-   * [mysql](https://www.npmjs.com/package/mysql)
+   * [mysql](https://www.npmjs.com/package/mysql) run _npm install mysql_ 
 
 2. You will need to set up the database. Use the file named "mystore_bd-SETUP.sql" located in this repo.
 
