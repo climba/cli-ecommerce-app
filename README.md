@@ -34,11 +34,15 @@
 
 4. Once your files are set up you can start using the app.
 
-5. Explore the functionaliy of the Customers area by running the command "node app_customer.js"
+5. Explore the functionaliy of the Customers area by running the command " _node app_customer.js_ "
 
-6. Explore the functionaliy of the Customers area by running the command "node app_supervisor.js"
+### Customer Area
 
-![app_customer.gif](https://github.com/climba/cli-ecommerce-app/blob/master/images/app_customer.gif?raw=true "Customer Area")
+![app_customer.gif](images/app_customer.gif?raw=true "Customer Area")
 
-![app_supervisor.gif](https://github.com/climba/cli-ecommerce-app/blob/master/images/app_supervisor.gif?raw=true "Supervisor Area")
+6. Explore the functionaliy of the Customers area by running the command " _node app_supervisor.js_ "
+
+### Supervisor Area
+
+![app_supervisor.gif](images/app_supervisor.gif?raw=true "Supervisor Area")
 
