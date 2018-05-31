@@ -38,7 +38,7 @@
 
 6. Explore the functionaliy of the Customers area by running the command "node app_supervisor.js"
 
-![app_customer.gif] (https://github.com/climba/cli-ecommerce-app/blob/master/images/bamazon_app_customer.gif?raw=true)
+![app_customer.gif] (/images/bamazon_app_customer.gif)
 
-![app_supervisor.gif] (https://github.com/climba/cli-ecommerce-app/blob/master/images/bamazon_app_supervisor.gif?raw=true)
+![app_supervisor.gif] (/images/bamazon_app_supervisor.gif)
 
