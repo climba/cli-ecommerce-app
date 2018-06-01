@@ -94,25 +94,24 @@ function addInventory() {
     message: "Enter the new stock quantity:",
     }
 ]).then(function (answers) {
-    updateStockQuant(parseInt(answers.item_id), parseInt(answers.stock_quantity));
+  
+  var item_id = parseFloat(answers.item_id)
+  var stock_quantity = parseFloat(answers.stock_quantity)
+    updateStockQuant(item_id, stock_quantity);
   })
 }
 
 function updateStockQuant(item_id, stock_quantity) {
-  console.log(item_id + stock_quantity + "\n");
+  // console.log('item_id ', item_id + "\n");
+  // console.log('stock_quantity ', stock_quantity + "\n");
   console.log("Inserting a new item.... \n");
   var query = connection.query(
-    "UPDATE products SET ? WHERE ?",
-    {
-      stock_quantity: stock_quantity
-    },
-    {
-      item_id: item_id
-    },
+    "UPDATE products SET `stock_quantity` = "+[stock_quantity] + " WHERE `item_id` = " +[item_id],
+    
     function (err, res) {
-      console.log("Hi");
+      // console.log("Hi");
       if (err) {
-        console.log(err);
+        console.log('err in update stock quant', err);
       }
       // console.log(res);
     });
