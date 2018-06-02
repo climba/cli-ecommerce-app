@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app_supervisor.js",
+    "watch": "nodemon app_supervisor.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/climba/cli-ecommerce-app/issues"
   },
-  "homepage": "https://github.com/climba/cli-ecommerce-app#readme"
+  "homepage": "https://github.com/climba/cli-ecommerce-app#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
 }
