@@ -13,6 +13,8 @@
    * [mysql](https://www.npmjs.com/package/mysql) run _npm install mysql_ 
 
 2. You will need to set up the database. Use the file named "[mystore_bd-SETUP.sql](/mystore_bd-SETUP.sql)" located in this repo.
+  *  If you want the database without any demo data use the file named "[schema.sql](/schema.sql)" located in this repo.
+  *  If you want to edit the default demo data or add your own demo data, use the file named "[seeds.sql](/seeds.sql)" located in this repo.
 
 3. Once you have your database set up, you can edit the configs at the top of the files list below for your specific environment. 
 
