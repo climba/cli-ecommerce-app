@@ -1,6 +1,12 @@
 PC
 
-mysqldump -u root -p mystore_db > /C/Users/Mike/Documents/bootcamp/_msql_commands/mystore_V10.sql
+mysqldump -u root -p mystore_db > /C/Users/Mike/Documents/bootcamp/_msql_commands/mystore_V12.sql
+
+mysqldump -u root -p --compatible=mysql40 mystore_db > /C/Users/Mike/Documents/bootcamp/_msql_commands/mystore_V12.sql
+
+mysqldump -u root -p --compatible=mysql50 mystore_db > /C/Users/Mike/Documents/bootcamp/_msql_commands/mystore_V12.sql
+
+CREATE DATABASE `mystore_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 
 Laptop
 
