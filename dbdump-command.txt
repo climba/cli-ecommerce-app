@@ -11,3 +11,12 @@ CREATE DATABASE `mystore_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8
 Laptop
 
 mysqldump -u root -p mystore_db > /C/Users/mike/Documents/bootcamp/_msql_commands/mystore/mystore_V10.sql
+
+
+orders
+
+order_num, order_prod_id, shipping, department_name, timestamp, order_quantity
+
+department_id, department_name, over_head_costs
+
+item_id, product_name, product_sales, department_name, price, shipping, stock_quantity, wholesale_cost
